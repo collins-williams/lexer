@@ -1,0 +1,8 @@
+    
+#this is a comment
+ this is not a comment
+ keyword > "quoted string"
+ keyword2 "quoted string with embedded # hash"
+ "foobie \" doobie"
+ #comment with embedded "quote 
+<<<< 

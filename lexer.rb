@@ -15,6 +15,8 @@ class Lexer
   end
   
   def addToken (tokID, re)
+    # prepend all regexp with \\A so that they only match at tbe beginning of a 
+    # line
     @rules << Rule.new(tokID,
       case re
         when String
@@ -81,7 +83,7 @@ class Lexer
           return nil
           # either matching less than whole buffer OR at eof
         elsif md[0].length > maxLexeme.length
-          # match is longer than any prior match => true-up the invariant
+          # match is longer than any prior match => re-establish the invariant
           matchCount, rule2 = 1, nil
           maxLexeme, maxMatch = md[0], Match.new(rule,md[0])
         elsif  md[0].length == maxLexeme.length
@@ -111,10 +113,15 @@ class Lexer
   end
   
   def analyze
+    # find the longest matching prefix of the buffer... aMatch will contain the
+    # rule that matched and the prefix/lexeme
     aMatch = findMatch
+    
     #remove matched text from @buff
     @buff.slice!(0..aMatch.lexeme.length-1) if aMatch
+    
     return aMatch
   end
+  
 end
 

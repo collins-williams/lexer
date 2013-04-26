@@ -1,7 +1,10 @@
 #!/usr/bin/env ruby -w
 
+# Rule is a binding of an caller provided regular expression and the token
+# the caller will want returned if that re is a chosen as a match.
 Rule = Struct.new :tokID, :re
 
+# Match is a binding of a Rule and the text that matched it (called a lexeme)
 Match = Struct.new :rule, :lexeme
 
 class Lexer
@@ -71,10 +74,13 @@ class Lexer
       #  maxMatch contains the proposed return value
       #  rule2 contains a subsequent rule that also matches maxLexeme (if any)
       #
-      # but... we have to avoid matching and instead keep looking if we make
-      # it to the end of @buff with a match active (it may not yet be as long
-      # as possible) OR if more than one match is still active.  If the end of
-      # @buff is also the end of the file, then it's ok to match to the end
+      # but... we have to avoid matching and instead keep looking if
+      # (1)we make it to the end of @buff with a match active (it may not yet be as long
+      # as possible) OR
+      # (2) if more than one match is still active. 
+      #
+      # If the end of @buff is also the end of the file, then it's ok to 
+      # match to the end
       #
       md = rule.re.match(@buff)
       if md && md.pre_match.empty?
@@ -84,8 +90,10 @@ class Lexer
           # either matching less than whole buffer OR at eof
         elsif md[0].length > maxLexeme.length
           # match is longer than any prior match => re-establish the invariant
-          matchCount, rule2 = 1, nil
-          maxLexeme, maxMatch = md[0], Match.new(rule,md[0])
+          matchCount = 1    # only one match of this length has been found
+          rule2 = nil       # there is no second matching rule
+          maxLexeme = md[0] # remember the new longest matching text
+          maxMatch =  Match.new(rule, maxLexeme) # create a new Match for eventual return
         elsif  md[0].length == maxLexeme.length
           # a subsequent match of equal length has been found.
           # re-establish the invariant

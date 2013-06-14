@@ -68,11 +68,18 @@ class LexerDriver
       end
     }
     
-    if result
+    if result && state == 0
       puts "rule file successfully parsed"
+      ret = true
+    elsif result && state != 0
+      puts "#{aFile}: incomplete rule detected"
+      ret = false
     else
       puts "fail: #{rule_number} : #{rule_file_lexer.errString}"
+      ret = false
     end
+    
+    return ret
   end
   
   def show_rules
@@ -80,8 +87,7 @@ class LexerDriver
   end
   
   def file_set(aFile)
-    @l.parseFile(aFile)
-       
+    @l.parseFile(aFile)       
   end
   
   def errString

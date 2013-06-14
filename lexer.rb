@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #!/usr/bin/env ruby -w
 
 Rule = Struct.new :tokID, :re

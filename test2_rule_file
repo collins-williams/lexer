@@ -1,0 +1,11 @@
+# this is a comment
+:for_token ==> "for" # this is an end of line comment
+
+# the preceding line is blank.  the next line has 3 spaces then a tab
+   	
+# the next line is a rule for a double quote
+:double_quote_token ==> """
+
+# the next line is a syntax error b/c it does not have the re quoted
+:error_token ==> oops
+   	

@@ -1,0 +1,7 @@
+# this is a comment
+:for_token ==> "for" # this is an end of line comment
+
+# test the ability to have and re that is just a double quote
+:double_quote_token ==> '"'
+
+   	

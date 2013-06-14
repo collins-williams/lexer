@@ -29,6 +29,12 @@ class Lexer
     )
   end
   
+  def show_rules
+    @rules.each { |aRule|
+      puts "#{aRule.tokID} #{aRule.re.source}"
+    }
+  end
+  
   def parseFile(_name)
     @fileName = _name
     File.open(@fileName, "r") { |file|
@@ -50,10 +56,10 @@ class Lexer
     # @buff contains the earliest unmatched text... if @buff is not empty when
     # we finish with the file, this is an error
     if !@buff.empty?
-      @errString = "error: unmatched text:\n #{@buff[0,[80, @buff.length].min]}"
+      @errString = "#{@fileName}: error: unmatched text:\n#{@buff[0,[80, @buff.length].min]}"
       return false
     else
-      @errStrng =  "no errors detected\n"
+      @errStrng =  "#{@fileName}: no errors detected\n"
       return true
     end
   end 

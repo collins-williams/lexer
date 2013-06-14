@@ -40,7 +40,7 @@ class LexerDriver
       case token
       when :rule_token_name   # waiting on a token
         if state == 0
-          token_string = lexeme
+          @token_string = lexeme
           state = 1
         else
            raise "token name seen when state = #{state}"
@@ -56,8 +56,8 @@ class LexerDriver
       when :rule_file_re   
         if state == 2
           trimmed_re = lexeme[1..lexeme.length-2]
-          puts "adding rule #{token_string} ==> #{trimmed_re}"
-          @l.addToken(token_string,Regexp.new(trimmed_re))
+          puts "adding rule #{@token_string} ==> #{trimmed_re}"
+          @l.addToken(@token_string,Regexp.new(trimmed_re))
           state = 0
           rule_number += 1
         else
@@ -87,15 +87,13 @@ class LexerDriver
   end
   
   def file_set(aFile)
-    @l.parseFile(aFile)       
+    @l.parseFile(aFile) { |token, lexeme|
+      yield token, lexeme
+    }   
   end
   
   def errString
     @l.errString()
-  end
-  
-  def parse_file
-    l = Lexer.new
   end
 
 end

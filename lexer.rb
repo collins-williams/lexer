@@ -59,7 +59,7 @@ class Lexer
       @errString = "#{@fileName}: error: unmatched text:\n#{@buff[0,[80, @buff.length].min]}"
       return false
     else
-      @errStrng =  "#{@fileName}: no errors detected\n"
+      @errString =  "#{@fileName}: no errors detected\n"
       return true
     end
   end 

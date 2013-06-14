@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/usr/bin/env ruby -w
 
 Rule = Struct.new :tokID, :re
@@ -130,4 +131,3 @@ class Lexer
   end
   
 end
-

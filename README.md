@@ -8,3 +8,5 @@ Plan
   add the ability to take a grammar from a file(s)
   then, separately, add the ability to have tokens call out?
 
+Next make a small language and then translate some symbols in it according to a table
+

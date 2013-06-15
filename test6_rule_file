@@ -1,0 +1,12 @@
+# 
+# a baby language that will test various aspedts of  pattern specificaiton and 
+# parsing
+#
+# it has comments, keywords, numbers, and identifiers as well as braces and parenthesese
+# 
+:white_space_token ==> "\s+"
+:comment_token ==> "#.*[\r\n]+"
+:for_token ==> "for" 
+
+
+   	

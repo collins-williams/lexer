@@ -99,35 +99,40 @@ class Lexer
         end
       end
     }
-    #new if matches has one element return it.  otherwise return the element of matches with the
-    # highest priority
+    #if matches has one element return it.  otherwise return the element 
+    # of matches with the lowest priority
     if matches.length == 1
       return matches[0]
     elsif matches.empty?
       return nil
     else
-      max_match = nil
+      min_match = nil
       second_match = nil
       matches.each { |aMatch|
-        if max_match
-          if max_match.rule.priority < aMatch.rule.priority
-            max_match = aMatch
+        #loop invariant:  max_match will contain a match with the lowest priority 
+        # yet seen (or no match at all).  second_match will contain a rule that 
+        # has the same priority as min_match (or no match at all)
+        if min_match
+          if min_match.rule.priority > aMatch.rule.priority
+            min_match = aMatch
             second_match = nil
-          elsif max_match.rule.priority == aMatch.rule.priority
+          elsif min_match.rule.priority == aMatch.rule.priority
             second_match = aMatch
           else
             # skip this one
           end
         else
-          max_match = aMatch
+          min_match = aMatch
           second_match = nil
         end 
       }
+      # if the priority sucessfully broke the tie then return min_match; other wise 
+      # raise an exception
       if second_match
-        raise "ambiguous: #{max_match.lexeme} : #{max_match.rule} : #{second_match.rule}"
+        raise "ambiguous: #{min_match.lexeme} : #{min_match.rule} : #{second_match.rule}"
         return nil
       else
-        return max_match
+        return min_match
       end
     end
   end

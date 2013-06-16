@@ -1,3 +1,4 @@
+#!/usr/bin/ruby -w
 ############################################################################
 #    Copyright (C) 2010 by Collins Williams                                #
 #    cwilliam@leon                                                         #
@@ -8,7 +9,7 @@
 #CommentToken = 1
 #QuotedStringToken = 2
 #WordToken = 3
-require "lexer"
+require "./lexer.rb"
 l = Lexer.new
 l.addToken(nil, Regexp.new("\\s+", Regexp::MULTILINE))
 l.addToken(nil, Regexp.new("#.*[\\n\\r]+"))

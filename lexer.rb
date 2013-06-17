@@ -109,7 +109,7 @@ class Lexer
       min_match = nil
       second_match = nil
       matches.each { |aMatch|
-        #loop invariant:  max_match will contain a match with the lowest priority 
+        #loop invariant:  min_match will contain a match with the lowest priority 
         # yet seen (or no match at all).  second_match will contain a rule that 
         # has the same priority as min_match (or no match at all)
         if min_match

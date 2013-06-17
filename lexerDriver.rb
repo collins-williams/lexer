@@ -57,7 +57,7 @@ class LexerDriver
         if state == 2
           trimmed_re = lexeme[1..lexeme.length-2]
           puts "adding rule #{@token_string} ==> #{trimmed_re}"
-          @l.addToken(@token_string,Regexp.new(trimmed_re))
+          @l.addToken(@token_string,Regexp.new(trimmed_re), rule_number)
           state = 0
           rule_number += 1
         else

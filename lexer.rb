@@ -130,7 +130,6 @@ class Lexer
       # raise an exception
       if second_match
         raise "ambiguous: #{min_match.lexeme} : #{min_match.rule} : #{second_match.rule}"
-        return nil
       else
         return min_match
       end

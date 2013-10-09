@@ -24,8 +24,8 @@ class LexerDriver
     # the token_id should have the leading colon of a Ruby symbol
     # something like this
     # :token_id ==> "RegularExpressionForToken" # comment describing 
-    # the regular expression can be singel or double quoted.  For my 
-    # sanity whichevery delimiter is used may not appear in the reqular expression itself
+    # the regular expression can be single or double quoted.  For my 
+    # sanity which ever delimiter is used may not appear in the reqular expression itself
     # so rules that include `'` may not include `"` 
     rule_file_lexer.addToken(:rule_token_name,Regexp.new(":\\w+"))
     rule_file_lexer.addToken(:rule_arrow,Regexp.new("==>"))

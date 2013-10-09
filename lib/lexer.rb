@@ -4,6 +4,11 @@ Rule = Struct.new :tokID, :re, :priority
 
 Match = Struct.new :rule, :lexeme
 
+=begin
+=This class instantiates a file scanner based on rules it is given. 
+addToken adds a rule described by a token identifiers, and a regular expression 
+parseFile scans its file parameter, yeilding token idnetifiers and the strings that matched them
+=end
 class Lexer
   attr_reader :errString
   # keep a collection of regular expressions and values to return as token 
@@ -88,8 +93,7 @@ class Lexer
           # either matching less than whole buffer OR at eof
         elsif (matches.length == 0) || (md[0].length > matches[0].lexeme.length) 
           # match is longer than any prior match => re-establish the invariant
-          matches = []
-          matches <<  Match.new(rule,md[0])
+          matches = Array.new <<  Match.new(rule,md[0])
         elsif  md[0].length == matches[0].lexeme.length
           # a subsequent match of equal length has been found.
           # re-establish the invariant
@@ -126,7 +130,7 @@ class Lexer
           second_match = nil
         end 
       }
-      # if the priority sucessfully broke the tie then return min_match; other wise 
+      # if the priority sucessfully broke the tie then return min_match; otherwise 
       # raise an exception
       if second_match
         raise "ambiguous: #{min_match.lexeme} : #{min_match.rule} : #{second_match.rule}"
